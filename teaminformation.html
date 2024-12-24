@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Information</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #ff7e5f, #feb47b);
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      color: #fff;
+    }
+
+    .team-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .team-member {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin: 10px;
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .team-member:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .team-member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+    }
+
+    .team-member h3 {
+      margin: 10px 0;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .team-member p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    @media (max-width: 768px) {
+      .team-member {
+        width: 90%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      .team-member h3 {
+        font-size: 18px;
+      }
+
+      .team-member p {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Meet Our Team</h1>
+<div class="team-container">
+  <div class="team-member">
+    <img src="https://via.placeholder.com/100" alt="Team Member 1">
+    <h3>Puneet B Gadade</h3>
+    <p><strong>Role:</strong> Team Lead</p>
+    <p><strong>Email:</strong> puneet@example.com</p>
+  </div>
+  <div class="team-member">
+    <img src="https://via.placeholder.com/100" alt="Team Member 2">
+    <h3>Manish V G</h3>
+    <p><strong>Role:</strong> Backend Developer</p>
+    <p><strong>Email:</strong> manish123@gamil.com</p>
+  </div>
+  <div class="team-member">
+    <img src="https://via.placeholder.com/100" alt="Team Member 3">
+    <h3>Abhishek R S</h3>
+    <p><strong>Role:</strong> Frontend Developer</p>
+    <p><strong>Email:</strong> abhishek123@gamil.com</p>
+  </div>
+  <div class="team-member">
+    <img src="https://via.placeholder.com/100" alt="Team Member 4">
+    <h3>Vinya C N</h3>
+    <p><strong>Role:</strong> UI/UX Designer</p>
+    <p><strong>Email:</strong> vinya123@gmail.com</p>
+  </div>
+</div>
+
+</body>
+</html>
