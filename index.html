@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    nav a {
+      color: #ffcc00;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1.2rem;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      margin: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .back-button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #ffcc00;
+      color: black;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-button:hover {
+      background: #ffaa00;
+    }
+
+    @media (max-width: 768px) {
+      nav a {
+        font-size: 1rem;
+        margin: 0 10px;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav a {
+        font-size: 0.9rem;
+        margin: 0 5px;
+      }
+
+      header h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Introduction Page</h1>
+</header>
+
+<nav>
+  <a href="PORTFOLIO.html">My Portfolio</a>
+  <a href="teaminfo.html">Team Information</a>
+  <a href="projectoverview.html">Project Overview</a>
+  <a href="coursereflections.html">Course Reflections</a>
+  <a href="projectreflections.html">Project Reflection</a>
+</nav>
+
+<section>
+  <h2>Welcome to My Project</h2>
+  <p>This page serves as the central hub for navigating my project, which focuses on creating a smart city design for Chandigarh. Use the navigation links above to explore various aspects of the project, including the portfolio, team information, project overview, reflections, and more.</p>
+</section>
+
+<!-- Back to Previous Page Button -->
+<a href="javascript:history.back()" class="back-button">Go Back to Previous Page</a>
+
+</body>
+</html>
