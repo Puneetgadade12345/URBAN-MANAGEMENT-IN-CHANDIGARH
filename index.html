@@ -19,12 +19,14 @@
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.1);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 2s ease-in-out;
     }
 
     h2 {
       text-align: center;
       font-size: 24px;
       margin-bottom: 15px;
+      animation: slideIn 1.5s ease-in-out;
     }
 
     ul {
@@ -35,6 +37,7 @@
     ul li {
       margin: 10px 0;
       font-size: 18px;
+      animation: fadeIn 2s ease-in-out;
     }
 
     a {
@@ -51,6 +54,7 @@
       border-collapse: collapse;
       margin-top: 10px;
       font-size: 18px;
+      animation: fadeIn 2s ease-in-out;
     }
 
     table th, table td {
@@ -71,6 +75,17 @@
       background: rgba(255, 255, 255, 0.2);
       border-left: 5px solid #ffcc00;
       border-radius: 5px;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     @media (max-width: 768px) {
@@ -106,19 +121,18 @@
 <body>
 
 <section>
-  <h2>🚀 Skills</h2>
+  <h2>Skills</h2>
   <ul>
-    <li><strong>Programming Languages:</strong> C++, Python, JavaScript</li>
+    <li><strong>Programming Languages:</strong> C++, Python, JavaScript,C-programming</li>
     <li><strong>Core Concepts:</strong> Data Structures and Algorithms</li>
-    <li><strong>Web Development:</strong> React.js, Node.js</li>
   </ul>
 </section>
 
 <section>
   <h2>🌐 Find Me Online</h2>
   <ul>
-    <li><a href="https://puneetgadade12345.github.io/URBAN-MANAGEMENT-IN-CHANDIGARH/" target="_blank">GitHub</a></li>
-=  </ul>
+    <li><a href="https://github.com/your-github-username" target="_blank">GitHub</a></li>
+  </ul>
 </section>
 
 <section>
