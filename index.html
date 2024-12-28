@@ -1,63 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+    }
+
+    section {
+      margin: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+
+    a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    table th, table td {
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: left;
+    }
+
+    table th {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    blockquote {
+      margin: 20px auto;
+      padding: 20px;
+      font-style: italic;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.2);
+      border-left: 5px solid #ffcc00;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        margin: 10px;
+        padding: 15px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      ul li, table th, table td {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 18px;
+      }
+
+      ul li, table th, table td {
+        font-size: 14px;
+      }
+
+      table {
+        font-size: 14px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Hello, I'm PUNEET GADADE👋</h1>
-        <p>Welcome to my portfolio I am passionate about technology and problem-solving</p>
-    </header>
 
-    <section>
-        <h2>🛠️ Projects</h2>
-        <ul>
-            <li><strong>Project 1</strong>: A short description of your project1.</li>
-            <li><strong>Project 2</strong>: A short description of another project2.</li>
-        </ul>
+<section>
+  <h2>🚀 Skills</h2>
+  <ul>
+    <li><strong>Programming Languages:</strong> C++, Python, JavaScript</li>
+    <li><strong>Core Concepts:</strong> Data Structures and Algorithms</li>
+    <li><strong>Web Development:</strong> React.js, Node.js</li>
+  </ul>
+</section>
 
-        <h2>🚀 Skills</h2>
-        <ul>
-            <li>C++, Python, c</li>
-            <li>Data Structures and Algorithms</li>
-        </ul>
+<section>
+  <h2>🌐 Find Me Online</h2>
+  <ul>
+    <li><a href="https://github.com/your-github-username" target="_blank">GitHub</a></li>
+    <li><a href="https://linkedin.com/in/your-linkedin-profile" target="_blank">LinkedIn</a></li>
+  </ul>
+</section>
 
-        <h2>🌐 Find Me Online</h2>
-        <ul>
-            <li><a href="https://puneetgadade12345.github.io/URBAN-MANAGEMENT-IN-CHANDIGARH/" target="_blank">GitHub</a></li>
-            <li><a href="www.linkedin.com/in/
-                punit-gadade-8261902aa" target="_blank">LinkedIn</a></li>
-        </ul>
+<section>
+  <h2>Portfolio Topic</h2>
+  <table>
+    <tr>
+      <th>Details</th>
+      <th>Information</th>
+    </tr>
+    <tr>
+      <td>Course Name</td>
+      <td>Design Analysis and Algorithms</td>
+    </tr>
+    <tr>
+      <td>Course Code</td>
+      <td>24ECSC205</td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>Puneet B Gadade</td>
+    </tr>
+    <tr>
+      <td>SRN</td>
+      <td>O1FE23BCS169</td>
+    </tr>
+    <tr>
+      <td>Course Instructor</td>
+      <td>Prof. Arundati A</td>
+    </tr>
+    <tr>
+      <td>University</td>
+      <td>KLE Technological University</td>
+    </tr>
+    <tr>
+      <td>Portfolio Topic/Domain</td>
+      <td>Smart City Design</td>
+    </tr>
+    <tr>
+      <td>Proposed City</td>
+      <td>Chandigarh City</td>
+    </tr>
+  </table>
+</section>
 
-        <h2>Portfolio Topic</h2>
-        <dl>
-            <dt>Course Name</dt>
-            <dd>Design and Analysis of Algorithms</dd>
+<blockquote>
+  “The only way to do great work is to love what you do.” – <em>Steve Jobs</em>
+</blockquote>
 
-            <dt>Course Code</dt>
-            <dd>24ECSC205</dd>
-
-            <dt>Name</dt>
-            <dd>PUNEET GADADE</dd>
-
-            <dt>SRN</dt>
-            <dd>01FE23BCS169</dd>
-
-            <dt>Course Instructor</dt>
-            <dd>PROF.Arundati A ,prof Prakash H</dd>
-
-            <dt>University</dt>
-            <dd>KLE TECHNOLOGICAL UNIVERSITY HUBBLLI</dd>
-
-            <dt>Portfolio Topic/Domain</dt>
-            <dd>Google</dd>
-        </dl>
-
-        <blockquote>“The only way to do great work is to love what you do.” – Steve Jobs</blockquote>
-    </section>
 </body>
 </html>
