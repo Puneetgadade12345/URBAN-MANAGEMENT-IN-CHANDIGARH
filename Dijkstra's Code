@@ -3,7 +3,6 @@
 #include <algorithm>
 #define MAX 9999
 using namespace std;
-
 class dijkstra {
 public:
     int dist[100];
