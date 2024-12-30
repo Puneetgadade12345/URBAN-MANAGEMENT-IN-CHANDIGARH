@@ -8,10 +8,10 @@
 /* Global Styles */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f9f9f9;
+    background-color: #a6b66f;
     margin: 0 auto;
     padding: 2rem;
-    color: #333;
+    color: #080808;
     max-width: 1200px;
     line-height: 1.6;
 }
@@ -33,13 +33,13 @@ nav ul {
 
 nav ul li a {
     text-decoration: none;
-    color: #fff;
+    color: #1a161a;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-    color: #F0E68C; /* Light Goldenrod Yellow */
+    color: #100f0c; /* Light Goldenrod Yellow */
 }
 
 /* Header */
@@ -49,7 +49,7 @@ header {
 }
 
 header h1 {
-    color: #8A2BE2; /* Vivid Violet */
+    color: #161516; /* Vivid Violet */
     font-size: 2.5rem;
 }
 
@@ -57,7 +57,7 @@ header h1 {
 main h2 {
     text-align: center;
     font-size: 1.8rem;
-    color: #555;
+    color: #0f0d0d;
     margin-bottom: 2rem;
 }
 
@@ -70,8 +70,8 @@ main h2 {
 }
 
 .team-member {
-    background-color: #FFFFFF; /* White background for cards */
-    border: 1px solid #ddd;
+    background-color: #dd94ef; /* White background for cards */
+    border: 1px solid #0a0a0a;
     border-radius: 10px;
     padding: 1.5rem;
     text-align: center;
@@ -87,7 +87,7 @@ main h2 {
 
 .team-member a {
     text-decoration: none;
-    color: #8A2BE2; /* Vivid Violet */
+    color: #080708; /* Vivid Violet */
     font-size: 1.2rem;
     font-weight: 600;
     transition: color 0.3s ease;
