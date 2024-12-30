@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Waste Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #d3816b;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #8A2BE2;
+            color: rgb(85, 64, 64);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.25rem;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        /* Content Section */
+        section {
+            background-color: #b4d2d4;
+            border: 1px solid #8A2BE2;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2.5rem;
+        }
+
+        section h2 {
+            margin-top: 1.5rem;
+            color: #8A2BE2;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        section h3 {
+            color: #8A2BE2;
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        section h4 {
+            color: #555;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        section p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #555;
+            margin-top: 0.8rem;
+        }
+
+        /* List Styling */
+        ul {
+            margin-top: 1.2rem;
+            margin-left: 1.5rem;
+            list-style-type: disc;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Link Styling */
+        a {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #8A2BE2;
+            color: rgb(225, 154, 154);
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #40E0D0;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            section h3 {
+                font-size: 1.25rem;
+            }
+
+            section p, ul {
+                font-size: 1rem;
+            }
+
+            a {
+                padding: 10px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Green Waste Management</h1>
+        <p>Optimizing Routes through Efficient Algorithms</p>
+    </header>
+
+    <!-- Content Section -->
+    <section>
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Friendly Route Optimization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #efa27b;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        ul {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Green Waste Management</h1>
+    <p>
+        Green Waste Management involves the efficient handling, processing, and disposal of organic materials like leaves, grass, and branches to minimize environmental impact. It plays a key role in promoting sustainability and supporting the circular economy.    </p>
+    
+    <h2>How Dijkstra's Algorithm Is Used</h2>
+    <p>
+        Dijkstra's algorithm is a classic graph-based approach for finding the shortest path between two nodes. In eco-friendly route optimization, Dijkstra’s algorithm can be adapted to minimize cost metrics related to environmental impact instead of just distance or time. Here's how it works:
+    </p>
+    <h3>Graph Representation:</h3>
+    <p>The road network is represented as a graph, where:</p>
+    <ul>
+        <li><strong>Nodes</strong> represent locations (ex: intersections, landmarks).</li>
+        <li><strong>Edges</strong> represent roads between locations, each with a weight.</li>
+    </ul>
+    <h3>Edge Weights:</h3>
+    <p>Instead of assigning weights based on distance or time, weights are calculated based on eco-friendly metrics, such as:</p>
+    <ul>
+        <li>Fuel consumption (ex: liters per kilometer).</li>
+        <li>Estimated carbon emissions.</li>
+        <li>Energy consumption for electric vehicles.</li>
+    </ul>
+    <h3>Algorithm Execution:</h3>
+    <ul>
+        <li>The algorithm starts from the source node and explores neighboring nodes.</li>
+        <li>At each step, it selects the path with the lowest cumulative environmental cost.</li>
+        <li>It continues until it finds the eco-friendly route to the destination.</li>
+    </ul>
+    <h3>Output:</h3>
+    <p>The algorithm returns the path with the minimal environmental cost, considering the assigned weights.</p>
+ 
+    
+
+</body>
+</html>
+      
+        <h4>Dijkstras algorithm Implementation in C++</h4>
+        <p>
+            Here is the implementation of dijkstra in C++. You can view the code using the
+            link below:
+        </p>
+        <a href="https://github.com/Puneetgadade12345/URBAN-MANAGEMENT-IN-CHANDIGARH/blob/main/Dijkstra's%20Code">Dijkstra'sCode</a>
+         
+    </section>
+</body>
+
+</html>
+
+       
