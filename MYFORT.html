@@ -1,65 +1,221 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="fort.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - PUNEET GADADE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #8a2be2, #6c1db8);
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #fbe9f2;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Profile Section */
+    .profile {
+      background: #ffffff;
+      color: #333;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      margin-bottom: 2rem;
+    }
+
+    .profile:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile_img {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid #8a2be2;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile_img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile h2 {
+      color: #8a2be2;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .profile ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+
+    .profile ul li {
+      background: #f4f4f9;
+      color: #333;
+      padding: 0.75rem;
+      border-radius: 5px;
+      margin-bottom: 0.5rem;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .profile ul li:hover {
+      background: #e2dff2;
+    }
+
+    a {
+      color: #8a2be2;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease-in-out;
+    }
+
+    a:hover {
+      color: #6c1db8;
+    }
+
+    blockquote {
+      font-style: italic;
+      margin: 2rem 0 1rem;
+      color: #555;
+      padding-left: 1rem;
+      border-left: 4px solid #8a2be2;
+    }
+    dl {
+        margin: 0;
+        padding: 0;
+      }
+    
+      dl dt {
+        color: #8a2be2; /* Purple color for headings */
+        font-weight: bold;
+        margin-top: 1rem;
+        font-size: 1.1rem;
+      }
+    
+      dl dd {
+        margin: 0 0 1rem 0;
+        padding-left: 1rem;
+        font-size: 1rem;
+        color: #555; /* Muted color for description */
+        line-height: 1.5;
+      }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .profile {
+        padding: 1.5rem;
+      }
+
+      .profile_img {
+        width: 120px;
+        height: 120px;
+      }
+
+      .profile h2 {
+        font-size: 1.8rem;
+      }
+    }
+    
+  </style>
 </head>
+
 <body>
-    <header>
-        <h1>Hello, I'm PUNEET GADADE 👋</h1>
-        <p>I am passionate about technology and problem-solving. Here's a glimpse of my work:</p>
-    </header>
+  <header>
+    <h1>Welcome to My Portfolio</h1>
+    <p>Discover my work and skills below:</p>
+  </header>
 
-    <section>
-        <h2>Projects</h2>
-        <ul>
-            <li><strong>Project 1</strong>: A short description of your project1.</li>
-            <li><strong>Project 2</strong>: A short description of another project2.</li>
-        </ul>
+  <div class="container">
+    <!-- Profile Section -->
+    <div class="profile">
+      <div class="img.jpg">
+        <img src="FORMA.jpg" style="height: 8rem; width: 8rem; border-radius: 50%;">
+      </div>
+      <h2>Hello, I'm PUNEET GADADE 👋</h2>
+      <p>Passionate about technology and problem-solving. Here's a glimpse of my work:</p>
+      <h3>🛠️ Projects</h3>
+      <ul>
+        <li><strong>Item Sorting Machine:</strong> A project on engineering exploration.</li>
+        <li><strong>Basic WhatsApp Chatbot:</strong> Designed during the DTSI course.</li>
+      </ul>
+      <h3>🚀 Skills</h3>
+      <ul>
+        <li>C, C++, Python, HTML, CSS</li>
+        <li>Data Structures and Algorithms</li>
+      </ul>
+      <h3>🌐 Find Me Online</h3>
+      <ul>
+        <li><a href="https://github.com/Puneetgadade12345/URBAN-MANAGEMENT-IN-CHANDIGARH" target="_blank">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/punit-gadade-8261902aa/" target="_blank">Linkedin</a></li>
 
-        <h2>🚀 Skills</h2>
-        <ul>
-            <li>C++, Python, JavaScript</li>
-            <li>Data Structures and Algorithms</li>
-            <li>Web Development (React.js, Node.js)</li>
-        </ul>
+      </ul>
+      <h3>📋 Portfolio Details</h3>
+<div class="portfolio-details">
+  <dl>
+    <dt>📘 <strong>cCourse name</strong></dt>
+    <dd>Design and Analysis of Algorithms</dd>
+    <dt>🆔 <strong>Course Code:</strong></dt>
+    <dd>24ECSC205</dd>
+    <dt>👤 <strong>Name:</strong></dt>
+    <dd>PUNEET GADADE</dd>
+    <dt>📄 <strong>SRN:</strong></dt>
+    <dd>01FE23BCS169</dd>
+    <dt>👨‍🏫 <strong>Instructor:</strong></dt>
+    <dd>prof.Aurndati A,Prof.Prakash Hegade</dd>
+    <dt>🏫 <strong>University:</strong></dt>
+    <dd>KLE Technological University</dd>
+    <dt>🌍 <strong>Project Domain:</strong></dt>
+    <dd>SMART CITY</dd>
+      <h3>PUNEET'S PORTFOLIO </h3>
+      <ul>
+        <li><a href="https://github.com/Puneetgadade12345/URBAN-MANAGEMENT-IN-CHANDIGARH" target="_blank">PUNEET</a></li>
 
-        <h2>🌐 Find Me Online</h2>
-        <ul>
-            <li><a href="hhttps://github.com/Puneetgadade12345/URBAN-MANAGEMENT-IN-CHANDIGARH" target="_blank">GitHub</a></li>
-            <li><a href="https://www.linkedin.com/in/punit-gadade-8261902aa/" target="_blank">LinkedIn</a></li>
-        </ul>
+      </ul>
+  </dl>
+</div>
 
-        <h2>Portfolio Topic</h2>
-        <dl>
-            <dt>Course Name</dt>
-            <dd>Design and Analysis of Algorithms</dd>
-
-            <dt>Course Code</dt>
-            <dd>24ECSC205</dd>
-
-            <dt>Name</dt>
-            <dd>PUNEET GADADE</dd>
-
-            <dt>SRN</dt>
-            <dd>01FE23BCS169</dd>
-
-            <dt>Course Instructor</dt>
-            <dd>Prof.Aurndati A,Prof.Prakash H</dd>
-
-            <dt>University</dt>
-            <dd>kle technological University hubballi</dd>
-
-            <dt>Portfolio Topic/Domain</dt>
-            <dd>Google</dd>
-        </dl>
-
-        <blockquote>“The only way to do great work is to love what you do.” – Steve Jobs</blockquote>
-    </section>
+      <blockquote>“The only way to do great work is to love what you do.” -- Steve Jobs</blockquote>
+    </div>
+  </div>
 </body>
+
 </html>
