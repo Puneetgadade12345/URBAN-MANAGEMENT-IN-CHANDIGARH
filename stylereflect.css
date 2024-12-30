@@ -8,7 +8,7 @@
 /* Global Styles */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #ce8ae3;
+    background-color: #f9f9f9;
     margin: 0 auto;
     padding: 2rem;
     color: #333;
@@ -70,7 +70,7 @@ main h2 {
 }
 
 .team-member {
-    background-color: #51f151; /* White background for cards */
+    background-color: #FFFFFF; /* White background for cards */
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 1.5rem;
