@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Reflections</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        section {
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        section h2 {
+            font-size: 1.5rem;
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+        section p {
+            margin: 10px 0;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        ul li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Course Reflections by  Vinay C N</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>1. Problems in Nature: Iteration, Recursion, and Backtracking</h2>
+            <p><strong>Iteration:</strong> Repeating actions until a condition is met. Example: Waves in the ocean repeating in cycles.</p>
+            <p><strong>Recursion:</strong> Solving problems by breaking them into smaller parts of the same type. Example: Patterns in snowflakes or ferns.</p>
+            <p><strong>Backtracking:</strong> Trying all possible paths and stepping back when something doesn’t work. Example: Ants searching for the shortest path to food.</p>
+        </section>
+
+        <section>
+            <h2>2. Space and Time Efficiency</h2>
+            <p><strong>Space Efficiency:</strong> The memory a program uses. Important for devices with limited memory.</p>
+            <p><strong>Time Efficiency:</strong> How fast a program runs. Important for saving time and resources.</p>
+            <ul>
+                <li>Constant Time (O(1)): Quick, like looking up a name in a small list.</li>
+                <li>Linear Time (O(n)): Proportional to input size, like scanning through a book.</li>
+                <li>Exponential Time (O(2^n)): Very slow, like testing every move in chess.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Design Principles (Chapter 2)</h2>
+            <ul>
+                <li>Divide and Conquer: Break the problem into smaller parts.</li>
+                <li>Abstraction: Focus on the key idea, ignore details.</li>
+                <li>Modularity: Design in pieces that can work independently.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Hierarchical Data and Trees</h2>
+            <p><strong>Tree:</strong> Represents relationships, like a family tree.</p>
+            <ul>
+                <li>Binary Search Tree (BST): Fast searching by dividing data in halves.</li>
+                <li>AVL Tree: Keeps the tree balanced for better performance.</li>
+                <li>Red-Black Tree: Similar to AVL but faster in some cases.</li>
+                <li>Heap: Used for priority tasks (e.g., job scheduling).</li>
+                <li>Trie: Stores words for quick searches (e.g., auto-suggestions).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Array Query Algorithms</h2>
+            <p>Solve problems like finding the sum or max of a subarray.</p>
+            <ul>
+                <li>Prefix Sum: Speeds up repeated sum queries.</li>
+                <li>Sliding Window: Efficient for ranges (e.g., tracking the highest temperature in a week).</li>
+                <li>Applications: Search engines, weather predictions.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Trees vs. Graphs</h2>
+            <p><strong>Tree:</strong> Hierarchical (e.g., file systems).</p>
+            <p><strong>Graph:</strong> Network connections (e.g., social networks).</p>
+            <ul>
+                <li>Tree Traversals: Preorder, Inorder, Postorder (used in parsing expressions).</li>
+                <li>Graph Traversals: BFS, DFS (used in shortest path and network analysis).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7. Sorting and Searching Algorithms</h2>
+            <h3>Sorting:</h3>
+            <ul>
+                <li>Bubble Sort: Educational purposes to teach sorting principles due to its simplicity.</li>
+                <li>Selection Sort: Efficient in terms of swaps but involves more comparisons.</li>
+                <li>Insertion Sort: Mainly used in small datasets with nearly sorted data.</li>
+                <li>QuickSort: Fast, divide-and-conquer.</li>
+                <li>MergeSort: Stable, used in large datasets.</li>
+                <li>HeapSort: Divide and transform.</li>
+            </ul>
+            <h3>Searching:</h3>
+            <ul>
+                <li>Linear Search: Simple and efficient for small lists.</li>
+                <li>Binary Search: Efficient for sorted data.</li>
+                <li>Hashing: Allows fast data access, especially when using hash tables.</li>
+                <li>Real-world Use: E-commerce (sorting products), GPS (searching routes).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>8. String Search and Graph Algorithms</h2>
+            <h3>String Search:</h3>
+            <ul>
+                <li>Brute Force String Search: Simple, small text patterns.</li>
+                <li>Boyer-Moore Algorithm: Large text, long patterns, optimal use.</li>
+                <li>KMP Algorithm: Efficient real-time search, long texts.</li>
+                <li>Rabin-Karp Algorithm: Multiple pattern searches, hashing.</li>
+            </ul>
+            <h3>Graph Algorithms:</h3>
+            <ul>
+                <li>Dijkstra's Algorithm: Shortest path (non-negative weights).</li>
+                <li>Bellman-Ford Algorithm: Shortest path (negative weights, cycle detection).</li>
+                <li>Floyd-Warshall Algorithm: All-pairs shortest paths.</li>
+                <li>Kruskal's Algorithm: Minimum Spanning Tree (MST).</li>
+                <li>Prim's Algorithm: Minimum Spanning Tree (MST).</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
