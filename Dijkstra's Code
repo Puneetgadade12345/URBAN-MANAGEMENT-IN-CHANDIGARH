@@ -1,121 +1,142 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#define MAX 9999
+#include <climits>
+#include <queue>
+#include <sstream>
+
 using namespace std;
-class dijkstra {
+
+// A class representing the graph structure
+class Graph {
 public:
-    int dist[100];
-    int path[100];
-    int visited[100];
-    int v;
-    int src;
+    int V; // Number of vertices
+    vector<vector<pair<int, int>>> adjList; // Adjacency list
 
-    void read(int cost[50][50]);
-    void initialize(int cost[50][50]);
-    void perform(int cost[50][50]);
-    void display();
-};
-
-void dijkstra::initialize(int cost[50][50]) {
-    for (int i = 0; i < v; i++) {
-        path[i] = src;
-        dist[i] = cost[src][i];
-        visited[i] = 0;
+    // Constructor to initialize the graph
+    Graph(int V) {
+        this->V = V;
+        adjList.resize(V);
     }
-    visited[src] = 1;
 
-}
-
-void dijkstra::read(int cost[50][50]) {
-    cout << "Enter the cost matrix (use " << MAX << " for no connection):" << endl;
-    for (int i = 0; i < v; i++) {
-        for (int j = 0; j < v; j++) {
-            cin >> cost[i][j];
-        }
+    // Function to add an edge to the graph
+    void addEdge(int u, int v, int weight) {
+        adjList[u].push_back(make_pair(v, weight));
+        adjList[v].push_back(make_pair(u, weight)); // Undirected graph
     }
-}
 
-void dijkstra::perform(int cost[50][50]) {
-    for (int count = 1; count < v; count++) {
+    // Function to implement Dijkstra's algorithm
+    void dijkstra(int source) {
+        // Initialize distance vector to infinity
+        vector<int> dist(V, INT_MAX);
+        dist[source] = 0;
 
-        int u = -1;
-        int minDist = MAX;
+        // Priority queue to store (distance, node) pairs
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        pq.push(make_pair(0, source));
 
-        for (int i = 0; i < v; i++) {
-            if (!visited[i] && dist[i] < minDist) {
-                u = i;
-                minDist = dist[i];
+        // Process nodes in the priority queue
+        while (!pq.empty()) {
+            int u = pq.top().second; // Get the node with the minimum distance
+            pq.pop();
+
+            // Update the distances for adjacent nodes
+            for (auto& edge : adjList[u]) {
+                int v = edge.first;
+                int weight = edge.second;
+
+                if (dist[u] + weight < dist[v]) {
+                    dist[v] = dist[u] + weight;
+                    pq.push(make_pair(dist[v], v)); // Add the updated distance to the queue
+                }
             }
         }
 
+        // Display the shortest distances from the source node
+        displayResults(dist, source);
+    }
 
-        if (u == -1) break;
+    // Function to display the shortest distances
+    void displayResults(const vector<int>& dist, int source) {
+        cout << "\nShortest distances from node " << source << ":\n";
+        for (int i = 0; i < V; ++i) {
+            if (dist[i] == INT_MAX) {
+                cout << "Node " << i << ": Unreachable\n";
+            } else {
+                cout << "Node " << i << ": " << dist[i] << "\n";
+            }
+        }
+    }
 
-        visited[u] = 1;
+    // Function to handle user input and validate it
+    static void handleUserInput(int& V, int& E, vector<vector<pair<int, int>>>& adjList) {
+        cout << "\nEnter the number of locations (vertices): ";
+        while (true) {
+            cin >> V;
+            if (V > 0) break;
+            else cout << "Please enter a positive number for the number of locations: ";
+        }
 
+        cout << "Enter the number of roads (edges): ";
+        while (true) {
+            cin >> E;
+            if (E > 0) break;
+            else cout << "Please enter a positive number for the number of roads: ";
+        }
 
-        for (int i = 0; i < v; i++) {
-            if (!visited[i] && cost[u][i] != MAX) {
-
-                dist[i] = min(dist[i], dist[u] + cost[u][i]);
-                if (dist[i] == dist[u] + cost[u][i]) {
-                    path[i] = u;
+        adjList.resize(V); // Resize the adjacency list based on number of vertices
+        cout << "\nEnter the roads (edges) in the format: <from_node> <to_node> <weight>\n";
+        for (int i = 0; i < E; ++i) {
+            int u, v, weight;
+            cout << "Enter edge " << i + 1 << ": ";
+            while (true) {
+                cin >> u >> v >> weight;
+                if (u >= 0 && v >= 0 && u < V && v < V && weight >= 0) {
+                    adjList[u].push_back(make_pair(v, weight));
+                    adjList[v].push_back(make_pair(u, weight)); // Undirected graph
+                    break;
+                } else {
+                    cout << "Invalid edge input. Please enter valid nodes and weight (0 <= u, v < " << V << ", weight >= 0): ";
                 }
             }
         }
     }
-}
 
-void dijkstra::display() {
-    int dest;
-    cout << "Enter the destination vertex: ";
-    cin >> dest;
-
-
-
-    cout << "The shortest path from vertex " << src << " to vertex " << dest << " is:" << endl;
-    for (int i=0;i<v;i++)
-    {
-        cout <<dist[i]<<""<<path[i]<<endl;
-
+    // Function to read the source node from user input
+    static int getSourceNode() {
+        int source;
+        cout << "\nEnter the source node (starting location): ";
+        while (true) {
+            cin >> source;
+            if (source >= 0) break;
+            else cout << "Please enter a valid non-negative source node: ";
+        }
+        return source;
     }
+};
 
-    vector<int> spath;
-    int curr = dest;
-    while (curr != src) {
-        spath.push_back(curr);
-        curr = path[curr];
-    }
-    spath.push_back(src);
-
-    for (int i = spath.size() - 1; i >= 0; i--) {
-        cout << spath[i];
-        if (i != 0) cout << " -> ";
-    }
-    cout << endl;
-
-    cout << "Total cost: " << dist[dest] << endl;
-}
-
+// Main function
 int main() {
-    int cost[50][50];
-    dijkstra d;
+    int V, E;
+    vector<vector<pair<int, int>>> adjList;
 
-    cout << "Enter the number of vertices: ";
-    cin >> d.v;
+    // Handle user input for the graph
+    Graph::handleUserInput(V, E, adjList);
 
-    d.read(cost);
+    // Create graph object
+    Graph g(V);
 
-    cout << "Enter the source vertex: ";
-    cin >> d.src;
+    // Add edges to the graph
+    for (int i = 0; i < V; ++i) {
+        for (const auto& edge : adjList[i]) {
+            g.addEdge(i, edge.first, edge.second);
+        }
+    }
 
+    // Get the source node for Dijkstra's algorithm
+    int source = Graph::getSourceNode();
 
-
-    d.initialize(cost);
-    d.perform(cost);
-
-    d.display();
+    // Run Dijkstra's algorithm to find the shortest paths
+    g.dijkstra(source);
 
     return 0;
 }
