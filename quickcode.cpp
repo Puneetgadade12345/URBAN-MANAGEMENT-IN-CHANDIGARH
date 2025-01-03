@@ -1,51 +1,101 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-// Function to partition the array
-int partition(int arr[], int low, int high) {
-    int pivot = arr[high];  // Choosing the last element as pivot
-    int i = low - 1;  // Pointer for the smaller element
+// Structure to represent an edge
+struct Edge {
+    int source, destination, weight;
+};
 
-    // Re-arranging elements
-    for (int j = low; j < high; j++) {
-        if (arr[j] < pivot) {
-            i++;
-            swap(arr[i], arr[j]);
+// Function to partition edges for Quick Sort
+int partition(vector<Edge>& edges, int low, int high) {
+    int pivot = edges[high].weight; // Pivot element
+    int i = low - 1;
+
+    for (int j = low; j < high; ++j) {
+        if (edges[j].weight <= pivot) {
+            ++i;
+            swap(edges[i], edges[j]);
         }
     }
-    swap(arr[i + 1], arr[high]);  // Move pivot to the correct position
+    swap(edges[i + 1], edges[high]);
     return i + 1;
 }
 
-// Quick Sort function
-void quickSort(int arr[], int low, int high) {
+// Quick Sort function for edges
+void quickSort(vector<Edge>& edges, int low, int high) {
     if (low < high) {
-        int pi = partition(arr, low, high);  // Partitioning index
-
-        quickSort(arr, low, pi - 1);  // Recursively sort the left part
-        quickSort(arr, pi + 1, high); // Recursively sort the right part
+        int pi = partition(edges, low, high);
+        quickSort(edges, low, pi - 1);
+        quickSort(edges, pi + 1, high);
     }
 }
 
-// Function to print the array
-void printArray(int arr[], int size) {
-    for (int i = 0; i < size; i++) {
-        cout << arr[i] << " ";
+// Find function for union-find (DSU)
+int findParent(vector<int>& parent, int vertex) {
+    if (parent[vertex] != vertex)
+        parent[vertex] = findParent(parent, parent[vertex]);
+    return parent[vertex];
+}
+
+// Union function for union-find (DSU)
+void unionVertices(vector<int>& parent, vector<int>& rank, int u, int v) {
+    int rootU = findParent(parent, u);
+    int rootV = findParent(parent, v);
+
+    if (rank[rootU] > rank[rootV]) {
+        parent[rootV] = rootU;
+    } else if (rank[rootU] < rank[rootV]) {
+        parent[rootU] = rootV;
+    } else {
+        parent[rootV] = rootU;
+        rank[rootU]++;
     }
-    cout << endl;
 }
 
 int main() {
-    int arr[] = {10, 7, 8, 9, 1, 5};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    int vertices, edgesCount;
+    cout << "Enter the number of areas (vertices): ";
+    cin >> vertices;
+    cout << "Enter the number of connections (edges): ";
+    cin >> edgesCount;
 
-    cout << "Original array: ";
-    printArray(arr, n);
+    vector<Edge> edges(edgesCount);
 
-    quickSort(arr, 0, n - 1);
+    cout << "Enter the connections (source, destination, weight):\n";
+    for (int i = 0; i < edgesCount; ++i) {
+        cin >> edges[i].source >> edges[i].destination >> edges[i].weight;
+    }
 
-    cout << "Sorted array: ";
-    printArray(arr, n);
+    // Sort edges using Quick Sort
+    quickSort(edges, 0, edgesCount - 1);
+
+    // Perform union-find to determine MST
+    vector<int> parent(vertices), rank(vertices, 0);
+    for (int i = 0; i < vertices; ++i) {
+        parent[i] = i;
+    }
+
+    vector<Edge> mst;
+    int totalCost = 0;
+
+    for (const auto& edge : edges) {
+        int rootU = findParent(parent, edge.source);
+        int rootV = findParent(parent, edge.destination);
+
+        if (rootU != rootV) {
+            mst.push_back(edge);
+            totalCost += edge.weight;
+            unionVertices(parent, rank, rootU, rootV);
+        }
+    }
+
+    // Display results
+    cout << "\nMinimum Spanning Tree (MST) edges:\n";
+    for (const auto& edge : mst) {
+        cout << "Edge: (" << edge.source << ", " << edge.destination << ") - Weight: " << edge.weight << "\n";
+    }
+    cout << "Total cost of MST: " << totalCost << "\n";
 
     return 0;
 }
