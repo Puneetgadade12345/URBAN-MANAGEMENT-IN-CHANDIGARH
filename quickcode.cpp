@@ -1,101 +1,81 @@
 #include <iostream>
 #include <vector>
+#include <string>
+
 using namespace std;
 
-// Structure to represent an edge
-struct Edge {
-    int source, destination, weight;
+// Structure to represent a service request
+struct ServiceRequest {
+    string requestID;     // Unique identifier for the service request
+    string serviceType;   // Type of service requested (e.g., "Road Repair", "Water Supply")
+    string dateSubmitted; // Date of submission (format: YYYY-MM-DD)
+
+    // For Quick Sort to compare based on date
+    bool operator<(const ServiceRequest &other) const {
+        return dateSubmitted < other.dateSubmitted;
+    }
 };
 
-// Function to partition edges for Quick Sort
-int partition(vector<Edge>& edges, int low, int high) {
-    int pivot = edges[high].weight; // Pivot element
+// Partition function to rearrange the elements around the pivot
+int partition(vector<ServiceRequest>& requests, int low, int high) {
+    ServiceRequest pivot = requests[high];
     int i = low - 1;
 
-    for (int j = low; j < high; ++j) {
-        if (edges[j].weight <= pivot) {
-            ++i;
-            swap(edges[i], edges[j]);
+    for (int j = low; j < high; j++) {
+        if (requests[j] < pivot) {
+            i++;
+            swap(requests[i], requests[j]);
         }
     }
-    swap(edges[i + 1], edges[high]);
+    swap(requests[i + 1], requests[high]);
     return i + 1;
 }
 
-// Quick Sort function for edges
-void quickSort(vector<Edge>& edges, int low, int high) {
+// Function to perform Quick Sort on the vector of service requests
+void quickSort(vector<ServiceRequest>& requests, int low, int high) {
     if (low < high) {
-        int pi = partition(edges, low, high);
-        quickSort(edges, low, pi - 1);
-        quickSort(edges, pi + 1, high);
+        int pivot = partition(requests, low, high);
+        quickSort(requests, low, pivot - 1);  // Recursively sort the left part
+        quickSort(requests, pivot + 1, high); // Recursively sort the right part
     }
 }
 
-// Find function for union-find (DSU)
-int findParent(vector<int>& parent, int vertex) {
-    if (parent[vertex] != vertex)
-        parent[vertex] = findParent(parent, parent[vertex]);
-    return parent[vertex];
-}
-
-// Union function for union-find (DSU)
-void unionVertices(vector<int>& parent, vector<int>& rank, int u, int v) {
-    int rootU = findParent(parent, u);
-    int rootV = findParent(parent, v);
-
-    if (rank[rootU] > rank[rootV]) {
-        parent[rootV] = rootU;
-    } else if (rank[rootU] < rank[rootV]) {
-        parent[rootU] = rootV;
-    } else {
-        parent[rootV] = rootU;
-        rank[rootU]++;
+// Function to display the service requests after sorting
+void displayRequests(const vector<ServiceRequest>& requests) {
+    cout << "\nSorted Service Requests (by Submission Date):\n";
+    cout << "------------------------------------------------\n";
+    for (const auto& request : requests) {
+        cout << "Request ID: " << request.requestID
+             << " | Service: " << request.serviceType
+             << " | Date: " << request.dateSubmitted << endl;
     }
 }
 
 int main() {
-    int vertices, edgesCount;
-    cout << "Enter the number of areas (vertices): ";
-    cin >> vertices;
-    cout << "Enter the number of connections (edges): ";
-    cin >> edgesCount;
+    int n;
+    cout << "Enter the number of service requests: ";
+    cin >> n;
 
-    vector<Edge> edges(edgesCount);
+    // Create a vector of service requests
+    vector<ServiceRequest> requests(n);
 
-    cout << "Enter the connections (source, destination, weight):\n";
-    for (int i = 0; i < edgesCount; ++i) {
-        cin >> edges[i].source >> edges[i].destination >> edges[i].weight;
+    // Input data for service requests
+    cout << "Enter details for each service request (Request ID, Service Type, Date of Submission):\n";
+    for (int i = 0; i < n; i++) {
+        cout << "Enter details for request " << i + 1 << ":\n";
+        cout << "Request ID: ";
+        cin >> requests[i].requestID;
+        cout << "Service Type (e.g., 'Road Repair', 'Water Supply'): ";
+        cin >> requests[i].serviceType;
+        cout << "Date Submitted (YYYY-MM-DD): ";
+        cin >> requests[i].dateSubmitted;
     }
 
-    // Sort edges using Quick Sort
-    quickSort(edges, 0, edgesCount - 1);
+    // Sort the service requests by date using Quick Sort
+    quickSort(requests, 0, n - 1);
 
-    // Perform union-find to determine MST
-    vector<int> parent(vertices), rank(vertices, 0);
-    for (int i = 0; i < vertices; ++i) {
-        parent[i] = i;
-    }
-
-    vector<Edge> mst;
-    int totalCost = 0;
-
-    for (const auto& edge : edges) {
-        int rootU = findParent(parent, edge.source);
-        int rootV = findParent(parent, edge.destination);
-
-        if (rootU != rootV) {
-            mst.push_back(edge);
-            totalCost += edge.weight;
-            unionVertices(parent, rank, rootU, rootV);
-        }
-    }
-
-    // Display results
-    cout << "\nMinimum Spanning Tree (MST) edges:\n";
-    for (const auto& edge : mst) {
-        cout << "Edge: (" << edge.source << ", " << edge.destination << ") - Weight: " << edge.weight << "\n";
-    }
-    cout << "Total cost of MST: " << totalCost << "\n";
+    // Display the sorted service requests
+    displayRequests(requests);
 
     return 0;
 }
