@@ -1,87 +1,102 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
+#include <tuple>
+#include <string>
 using namespace std;
 
-class DisjointSet {
-public:
+// Edge structure to store graph connections
+struct Edge {
+    int source, destination, weight;
+};
+
+// Disjoint Set Union (DSU) or Union-Find class
+class DSU {
     vector<int> parent, rank;
 
-    DisjointSet(int n) {
+public:
+    DSU(int n) {
         parent.resize(n);
         rank.resize(n, 0);
-        for (int i = 0; i < n; ++i)
+        for (int i = 0; i < n; ++i) {
             parent[i] = i;
+        }
     }
 
-    int find(int x) {
-        if (parent[x] != x)
-            parent[x] = find(parent[x]);  // Path compression
-        return parent[x];
+    // Find operation with path compression
+    int find(int u) {
+        if (parent[u] != u) {
+            parent[u] = find(parent[u]);
+        }
+        return parent[u];
     }
 
-    void unionSet(int x, int y) {
-        int rootX = find(x);
-        int rootY = find(y);
-
-        if (rootX != rootY) {
-            // Union by rank
-            if (rank[rootX] > rank[rootY]) {
-                parent[rootY] = rootX;
-            } else if (rank[rootX] < rank[rootY]) {
-                parent[rootX] = rootY;
+    // Union operation by rank
+    void unite(int u, int v) {
+        int rootU = find(u);
+        int rootV = find(v);
+        if (rootU != rootV) {
+            if (rank[rootU] < rank[rootV]) {
+                parent[rootU] = rootV;
+            } else if (rank[rootU] > rank[rootV]) {
+                parent[rootV] = rootU;
             } else {
-                parent[rootY] = rootX;
-                rank[rootX]++;
+                parent[rootV] = rootU;
+                rank[rootU]++;
             }
         }
     }
 };
 
-struct Edge {
-    int u, v, weight;
-    bool operator<(const Edge& other) const {
-        return weight < other.weight;
-    }
-};
+// Function to implement Kruskal's Algorithm
+void kruskalMST(int vertices, vector<Edge>& edges) {
+    // Sort edges by weight
+    sort(edges.begin(), edges.end(), [](Edge a, Edge b) {
+        return a.weight < b.weight;
+    });
 
-void kruskal(int V, vector<Edge>& edges) {
-    DisjointSet ds(V);
-    sort(edges.begin(), edges.end());
-
+    DSU dsu(vertices);
     vector<Edge> mst;
-    int mstWeight = 0;
+    int mstCost = 0;
 
-    for (auto& edge : edges) {
-        int u = edge.u;
-        int v = edge.v;
-
-        if (ds.find(u) != ds.find(v)) {
-            ds.unionSet(u, v);
+    // Process each edge
+    for (Edge& edge : edges) {
+        if (dsu.find(edge.source) != dsu.find(edge.destination)) {
+            dsu.unite(edge.source, edge.destination);
             mst.push_back(edge);
-            mstWeight += edge.weight;
+            mstCost += edge.weight;
         }
     }
 
-    cout << "Minimum Spanning Tree:" << endl;
-    for (auto& edge : mst) {
-        cout << edge.u << " - " << edge.v << ": " << edge.weight << endl;
+    // Output MST and its cost
+    cout << "Minimum Spanning Tree (MST) edges:\n";
+    for (Edge& edge : mst) {
+        cout << "Edge: (" << edge.source << ", " << edge.destination << ") - Weight: " << edge.weight << "\n";
     }
-    cout << "Total weight: " << mstWeight << endl;
+    cout << "Total cost of MST: " << mstCost << "\n";
 }
 
 int main() {
-    int V = 4;  // Number of vertices
-    vector<Edge> edges = {
-        {0, 1, 10},
-        {0, 2, 6},
-        {0, 3, 5},
-        {1, 3, 15},
-        {2, 3, 4}
-    };
+    int vertices, edgesCount;
 
-    kruskal(V, edges);
+    // Example: Chandigarh ICT infrastructure input
+    cout << "Enter the number of areas (vertices): ";
+    cin >> vertices;
+    cout << "Enter the number of connections (edges): ";
+    cin >> edgesCount;
+
+    vector<Edge> edges;
+
+    cout << "Enter the connections (source, destination, weight):\n";
+    for (int i = 0; i < edgesCount; ++i) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        edges.push_back({u, v, w});
+    }
+
+    // Call Kruskal's Algorithm
+    kruskalMST(vertices, edges);
 
     return 0;
 }
+
