@@ -1,54 +1,59 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <unordered_set>
+
 using namespace std;
 
-void bfs(int start, const vector<vector<int>>& graph) {
-    // Create a queue for BFS
+// Function to perform BFS
+void bfs(int V, vector<vector<int>>& adjList, int source) {
+    vector<bool> visited(V, false); // To keep track of visited nodes
     queue<int> q;
-    // Set of visited nodes
-    unordered_set<int> visited;
+    q.push(source);
+    visited[source] = true;
 
-    // Start from the given node
-    q.push(start);
-    visited.insert(start);
+    cout << "BFS Traversal starting from node " << source << ": ";
 
     while (!q.empty()) {
-        // Dequeue a vertex from the queue
-        int node = q.front();
+        int u = q.front();
         q.pop();
-        cout << node << " ";
+        cout << u << " ";
 
-        // Get all adjacent vertices of the dequeued vertex
-        for (int neighbor : graph[node]) {
-            // If the neighbor hasn't been visited
-            if (visited.find(neighbor) == visited.end()) {
-                visited.insert(neighbor);
-                q.push(neighbor);
+        for (int v : adjList[u]) {
+            if (!visited[v]) {
+                visited[v] = true;
+                q.push(v);
             }
         }
     }
+    cout << endl;
 }
 
 int main() {
-    // Create a graph using adjacency list
-    int V = 5;  // Number of vertices
-    vector<vector<int>> graph(V);
+    int V, E;
 
-    // Adding edges to the graph (undirected)
-    graph[0].push_back(1);
-    graph[0].push_back(2);
-    graph[1].push_back(0);
-    graph[1].push_back(3);
-    graph[2].push_back(0);
-    graph[2].push_back(4);
-    graph[3].push_back(1);
-    graph[4].push_back(2);
+    // Input graph details
+    cout << "Enter the number of nodes (vertices): ";
+    cin >> V;
 
-    // Perform BFS starting from vertex 0
-    cout << "Breadth-First Search starting from node 0: ";
-    bfs(0, graph);
+    cout << "Enter the number of edges: ";
+    cin >> E;
+
+    vector<vector<int>> adjList(V);
+
+    cout << "Enter the edges in the format <from_node> <to_node>:\n";
+    for (int i = 0; i < E; ++i) {
+        int u, v;
+        cin >> u >> v;
+        adjList[u].push_back(v);
+        adjList[v].push_back(u); // Undirected graph
+    }
+
+    int source;
+    cout << "Enter the source node for BFS: ";
+    cin >> source;
+
+    // Perform BFS
+    bfs(V, adjList, source);
 
     return 0;
 }
