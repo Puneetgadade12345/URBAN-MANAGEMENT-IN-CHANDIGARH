@@ -1,142 +1,100 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <iomanip>
+#include <algorithm>
+#include <map>
 
 using namespace std;
 
-// Function to build the LPS array for KMP
-vector<int> buildLPS(const string& pattern) {
-    int m = pattern.length();
-    vector<int> lps(m, 0);
-    int j = 0; // Length of the previous longest prefix suffix
+// Structure to represent an edge in the graph
+struct Edge {
+    string u, v;
+    int weight;
+    
+    bool operator<(const Edge &e) {
+        return weight < e.weight;
+    }
+};
 
-    for (int i = 1; i < m; i++) {
-        if (pattern[i] == pattern[j]) {
-            j++;
-            lps[i] = j;
-        } else {
-            if (j != 0) {
-                j = lps[j - 1];
-                i--; // Stay at the same character
-            } else {
-                lps[i] = 0;
+// Class to represent Disjoint Set Union (DSU)
+class DSU {
+public:
+    map<string, string> parent;
+    map<string, int> rank;
+
+    // Find the representative of the set to which element x belongs
+    string find(string x) {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]);  // Path compression
+        return parent[x];
+    }
+
+    // Union of two subsets
+    void unite(string x, string y) {
+        string rootX = find(x);
+        string rootY = find(y);
+
+        if (rootX != rootY) {
+            if (rank[rootX] > rank[rootY])
+                parent[rootY] = rootX;
+            else if (rank[rootX] < rank[rootY])
+                parent[rootX] = rootY;
+            else {
+                parent[rootY] = rootX;
+                rank[rootX]++;
             }
         }
     }
-    return lps;
-}
 
-// KMP Search Algorithm
-vector<int> KMPSearch(const string& text, const string& pattern) {
-    int n = text.length();
-    int m = pattern.length();
-    vector<int> lps = buildLPS(pattern);
-    vector<int> matches;
-
-    int i = 0, j = 0; // i: index for text, j: index for pattern
-    while (i < n) {
-        if (pattern[j] == text[i]) {
-            i++;
-            j++;
-        }
-        if (j == m) {
-            matches.push_back(i - j); // Found a match
-            j = lps[j - 1];
-        } else if (i < n && pattern[j] != text[i]) {
-            if (j != 0) {
-                j = lps[j - 1];
-            } else {
-                i++;
-            }
-        }
+    void addNode(string node) {
+        parent[node] = node;
+        rank[node] = 0;
     }
-    return matches;
-}
+};
 
-// Function to display the list of services/documents
-void displayServices(const vector<string>& services) {
-    cout << "\n--- List of Available Services/Documents ---\n";
-    for (size_t i = 0; i < services.size(); i++) {
-        cout << setw(3) << i + 1 << ". " << services[i] << endl;
-    }
-    cout << endl;
-}
+// Kruskal's algorithm to find the Minimum Spanning Tree (MST)
+int kruskal(int n, vector<Edge>& edges, DSU& dsu) {
+    int mst_weight = 0;
 
-// Function to search for a keyword in the list of services/documents
-void searchService(const vector<string>& services) {
-    string query;
-    cout << "Enter a keyword to search: ";
-    getline(cin, query);
+    // Sort edges by weight
+    sort(edges.begin(), edges.end());
 
-    cout << "\nSearching for: \"" << query << "\"\n";
-
-    bool found = false;
-    for (const auto& service : services) {
-        vector<int> matches = KMPSearch(service, query);
-        if (!matches.empty()) {
-            found = true;
-            cout << "Match found in: \"" << service << "\"" << endl;
+    // Process each edge and apply union-find to avoid cycles
+    for (Edge& edge : edges) {
+        string u = edge.u, v = edge.v;
+        int weight = edge.weight;
+        if (dsu.find(u) != dsu.find(v)) {
+            dsu.unite(u, v);
+            mst_weight += weight;
+            cout << "Road between " << u << " and " << v << " with cost " << weight << " included in MST.\n";
         }
     }
 
-    if (!found) {
-        cout << "No matches found for the keyword \"" << query << "\".\n";
-    }
+    return mst_weight;
 }
 
-// Function to add a new service/document
-void addService(vector<string>& services) {
-    string newService;
-    cout << "Enter the name of the new service/document: ";
-    getline(cin, newService);
-    services.push_back(newService);
-    cout << "Service/Document added successfully.\n";
-}
-
-// Function to display the main menu
-void displayMenu() {
-    cout << "\n--- Chandigarh E-Governance System ---\n";
-    cout << "1. View Available Services/Documents\n";
-    cout << "2. Search for a Service/Document\n";
-    cout << "3. Add a New Service/Document\n";
-    cout << "4. Exit\n";
-    cout << "Enter your choice: ";
-}
-
-// Main Function
 int main() {
-    vector<string> services = {
-        "Property Tax Payment Portal",
-        "Citizen Feedback System",
-        "Online Complaint Registration",
-        "E-Governance Policy Document",
-        "Public Transport Management System"
+    // Number of service centers in Chandigarh
+    int n = 6;  // Example: 6 service centers
+
+    // Initialize the Disjoint Set Union (DSU) structure
+    DSU dsu;
+    dsu.addNode("Sector 17");
+    dsu.addNode("Sector 22");
+    dsu.addNode("Sector 34");
+    dsu.addNode("Sector 35");
+    dsu.addNode("Sector 43");
+    dsu.addNode("Sector 45");
+
+    // Vector to store all edges (service center connections with cost)
+    vector<Edge> edges = {
+        {"Sector 17", "Sector 22", 4}, {"Sector 17", "Sector 34", 3}, {"Sector 22", "Sector 34", 1},
+        {"Sector 22", "Sector 35", 2}, {"Sector 34", "Sector 35", 4}, {"Sector 34", "Sector 43", 5},
+        {"Sector 35", "Sector 43", 2}, {"Sector 43", "Sector 45", 6}
     };
 
-    int choice;
-    do {
-        displayMenu();
-        cin >> choice;
-        cin.ignore(); // To handle the newline character after integer input
-
-        switch (choice) {
-            case 1:
-                displayServices(services);
-                break;
-            case 2:
-                searchService(services);
-                break;
-            case 3:
-                addService(services);
-                break;
-            case 4:
-                cout << "Exiting the system. Thank you!\n";
-                break;
-            default:
-                cout << "Invalid choice! Please try again.\n";
-        }
-    } while (choice != 4);
+    // Applying Kruskal's algorithm to find MST
+    int mst_cost = kruskal(n, edges, dsu);
+    cout << "Minimum Spanning Tree (MST) total cost: " << mst_cost << endl;
 
     return 0;
 }
