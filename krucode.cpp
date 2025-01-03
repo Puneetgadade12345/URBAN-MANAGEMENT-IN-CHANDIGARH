@@ -1,102 +1,110 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <tuple>
+#include <map>
 #include <string>
+
 using namespace std;
 
-// Edge structure to store graph connections
+// Structure to represent an edge in the graph
 struct Edge {
-    int source, destination, weight;
+    string u, v;
+    int weight;
+
+    bool operator<(const Edge &e) {
+        return weight < e.weight;
+    }
 };
 
-// Disjoint Set Union (DSU) or Union-Find class
+// Class to represent Disjoint Set Union (DSU)
 class DSU {
-    vector<int> parent, rank;
-
 public:
-    DSU(int n) {
-        parent.resize(n);
-        rank.resize(n, 0);
-        for (int i = 0; i < n; ++i) {
-            parent[i] = i;
-        }
+    map<string, string> parent;
+    map<string, int> rank;
+
+    // Find the representative of the set to which element x belongs
+    string find(string x) {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]);  // Path compression
+        return parent[x];
     }
 
-    // Find operation with path compression
-    int find(int u) {
-        if (parent[u] != u) {
-            parent[u] = find(parent[u]);
-        }
-        return parent[u];
-    }
+    // Union of two subsets
+    void unite(string x, string y) {
+        string rootX = find(x);
+        string rootY = find(y);
 
-    // Union operation by rank
-    void unite(int u, int v) {
-        int rootU = find(u);
-        int rootV = find(v);
-        if (rootU != rootV) {
-            if (rank[rootU] < rank[rootV]) {
-                parent[rootU] = rootV;
-            } else if (rank[rootU] > rank[rootV]) {
-                parent[rootV] = rootU;
-            } else {
-                parent[rootV] = rootU;
-                rank[rootU]++;
+        if (rootX != rootY) {
+            if (rank[rootX] > rank[rootY])
+                parent[rootY] = rootX;
+            else if (rank[rootX] < rank[rootY])
+                parent[rootX] = rootY;
+            else {
+                parent[rootY] = rootX;
+                rank[rootX]++;
             }
         }
     }
+
+    void addNode(string node) {
+        parent[node] = node;
+        rank[node] = 0;
+    }
 };
 
-// Function to implement Kruskal's Algorithm
-void kruskalMST(int vertices, vector<Edge>& edges) {
+// Kruskal's algorithm to find the Minimum Spanning Tree (MST)
+int kruskal(int n, vector<Edge>& edges, DSU& dsu) {
+    int mst_weight = 0;
+
     // Sort edges by weight
-    sort(edges.begin(), edges.end(), [](Edge a, Edge b) {
-        return a.weight < b.weight;
-    });
+    sort(edges.begin(), edges.end());
 
-    DSU dsu(vertices);
-    vector<Edge> mst;
-    int mstCost = 0;
-
-    // Process each edge
+    // Process each edge and apply union-find to avoid cycles
     for (Edge& edge : edges) {
-        if (dsu.find(edge.source) != dsu.find(edge.destination)) {
-            dsu.unite(edge.source, edge.destination);
-            mst.push_back(edge);
-            mstCost += edge.weight;
+        string u = edge.u, v = edge.v;
+        int weight = edge.weight;
+        if (dsu.find(u) != dsu.find(v)) {
+            dsu.unite(u, v);
+            mst_weight += weight;
+            cout << "Road between " << u << " and " << v << " with cost " << weight << " included in MST.\n";
         }
     }
 
-    // Output MST and its cost
-    cout << "Minimum Spanning Tree (MST) edges:\n";
-    for (Edge& edge : mst) {
-        cout << "Edge: (" << edge.source << ", " << edge.destination << ") - Weight: " << edge.weight << "\n";
-    }
-    cout << "Total cost of MST: " << mstCost << "\n";
+    return mst_weight;
 }
 
 int main() {
-    int vertices, edgesCount;
+    int n;
+    cout << "Enter the number of service centers: ";
+    cin >> n;  // Get the number of service centers dynamically
 
-    // Example: Chandigarh ICT infrastructure input
-    cout << "Enter the number of areas (vertices): ";
-    cin >> vertices;
-    cout << "Enter the number of connections (edges): ";
-    cin >> edgesCount;
+    // Initialize the Disjoint Set Union (DSU) structure
+    DSU dsu;
 
-    vector<Edge> edges;
-
-    cout << "Enter the connections (source, destination, weight):\n";
-    for (int i = 0; i < edgesCount; ++i) {
-        int u, v, w;
-        cin >> u >> v >> w;
-        edges.push_back({u, v, w});
+    // Add service centers to DSU
+    cout << "Enter the names of the service centers:\n";
+    vector<string> centers(n);
+    for (int i = 0; i < n; i++) {
+        cout << "Enter name for service center " << i + 1 << ": ";
+        cin >> centers[i];
+        dsu.addNode(centers[i]);  // Add each service center to DSU
     }
 
-    // Call Kruskal's Algorithm
-    kruskalMST(vertices, edges);
+    // Input edges (connections between service centers)
+    int m;
+    cout << "Enter the number of connections (roads): ";
+    cin >> m;
+    vector<Edge> edges(m);
+
+    cout << "Enter the connections (service center 1, service center 2, and cost for each road):\n";
+    for (int i = 0; i < m; i++) {
+        cout << "Enter connection " << i + 1 << " (service center 1, service center 2, cost): ";
+        cin >> edges[i].u >> edges[i].v >> edges[i].weight;
+    }
+
+    // Applying Kruskal's algorithm to find MST
+    int mst_cost = kruskal(n, edges, dsu);
+    cout << "Minimum Spanning Tree (MST) total cost: " << mst_cost << endl;
 
     return 0;
 }
-
