@@ -2,30 +2,30 @@
 #include <vector>
 #include <climits>
 #include <queue>
+#include <string>
+
 using namespace std;
 
-typedef pair<int, int> pii;  // (weight, vertex)
-
-void primsAlgorithm(const vector<vector<pii>>& graph, int V) {
-    vector<int> key(V, INT_MAX);      // Stores the minimum edge weight for each vertex
-    vector<int> parent(V, -1);        // Stores the parent of each vertex in the MST
-    vector<bool> inMST(V, false);     // To check if a vertex is included in MST
-    key[0] = 0;                       // Start from vertex 0
-
-    priority_queue<pii, vector<pii>, greater<pii>> pq;  // Min-heap to extract minimum key vertex
-    pq.push({0, 0});  // Start with vertex 0 and key value 0
+void primsMST(const vector<vector<pair<int, int>>>& graph, const vector<string>& areaNames) {
+    int n = graph.size();
+    vector<int> parent(n, -1);
+    vector<int> key(n, INT_MAX);
+    vector<bool> inMST(n, false);
+    key[0] = 0; // Start with node 0
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    pq.push({0, 0});
 
     while (!pq.empty()) {
-        int u = pq.top().second;  // Extract vertex with minimum key
+        int u = pq.top().second;
         pq.pop();
-        inMST[u] = true;  // Include u in MST
 
-        // Explore the neighbors of u
+        if (inMST[u]) continue;
+        inMST[u] = true;
+
         for (const auto& neighbor : graph[u]) {
             int v = neighbor.first;
             int weight = neighbor.second;
 
-            // If v is not in MST and the edge weight is smaller than the current key value
             if (!inMST[v] && weight < key[v]) {
                 key[v] = weight;
                 parent[v] = u;
@@ -34,32 +34,49 @@ void primsAlgorithm(const vector<vector<pii>>& graph, int V) {
         }
     }
 
-    // Output the MST
-    cout << "Edge \tWeight" << endl;
-    for (int i = 1; i < V; ++i) {
-        cout << parent[i] << " - " << i << " \t" << key[i] << endl;
+    cout << "\nMinimum Spanning Tree (MST) using Prim's Algorithm:\n";
+    int totalWeight = 0;
+    for (int i = 1; i < n; i++) {
+        if (parent[i] != -1) {
+            cout << areaNames[parent[i]] << " -> " << areaNames[i] << " with weight " << key[i] << " km\n";
+            totalWeight += key[i];
+        }
     }
+    cout << "Total Weight of MST: " << totalWeight << " km\n";
 }
 
 int main() {
-    int V = 4;
-    vector<vector<pii>> graph(V);
+    vector<string> areaNames = {
+        "Sector 17 (Chandigarh City Center)",
+        "Sector 22 (Chandigarh Market)",
+        "PGI Hospital (Chandigarh)",
+        "Chandigarh Railway Station",
+        "Chandigarh Airport",
+        "Sector 35 (Chandigarh Residential Area)",
+        "Flood-Affected Area (Chandigarh)",
+        "Earthquake-Affected Area (Chandigarh)",
+        "Safe Zone A (Northwest Cities)",
+        "Safe Zone B (Southeast Cities)"
+    };
 
-    // Graph represented by adjacency list (node, weight)
-    graph[0].push_back({1, 1});  // A -> B with weight 1
-    graph[1].push_back({0, 1});  // B -> A with weight 1
+    vector<vector<pair<int, int>>> graph = {
+        {{1, 4}, {2, 2}}, // Sector 17 to Sector 22, PGI Hospital
+        {{0, 4}, {2, 5}, {3, 10}}, // Sector 22 to Sector 17, PGI, Railway Station
+        {{0, 2}, {1, 5}, {3, 3}}, // PGI to Sector 17, Sector 22, Railway Station
+        {{1, 10}, {2, 3}, {4, 11}}, // Railway Station to Sector 22, PGI, Airport
+        {{3, 11}, {5, 6}}, // Airport to Railway Station, Sector 35
+        {{4, 6}} // Sector 35 to Airport
+    };
 
-    graph[0].push_back({3, 3});  // A -> D with weight 3
-    graph[3].push_back({0, 3});  // D -> A with weight 3
+    cout << "--- Disaster Management System for Chandigarh ---\n";
+    cout << "Available areas:\n";
+    for (size_t i = 0; i < areaNames.size(); i++) {
+        cout << i << ": " << areaNames[i] << "\n";
+    }
 
-    graph[1].push_back({2, 2});  // B -> C with weight 2
-    graph[2].push_back({1, 2});  // C -> B with weight 2
-
-    graph[2].push_back({3, 4});  // C -> D with weight 4
-    graph[3].push_back({2, 4});  // D -> C with weight 4
-
-    // Run Prim's Algorithm to find MST starting from vertex 0
-    primsAlgorithm(graph, V);
+    primsMST(graph, areaNames);
 
     return 0;
 }
+
+
